@@ -20,26 +20,55 @@
 //     println!("s1 = {s1}, s2 = {s2}");
 // }
 
+// fn main() {
+//     let s = String::from("hello");  // s comes into scope
+
+//     takes_ownership(s);             // s's value moves into the function...
+//                                     // ... and so is no longer valid here
+
+//     let x = 5;                      // x comes into scope
+
+//     makes_copy(x);                  // Because i32 implements the Copy trait,
+//                                     // x does NOT move into the function,
+//                                     // so it's okay to use x afterward.
+
+// } // Here, x goes out of scope, then s. However, because s's value was moved,
+//   // nothing special happens.
+
+// fn takes_ownership(some_string: String) { // some_string comes into scope
+//     println!("{some_string}");
+// } // Here, some_string goes out of scope and `drop` is called. The backing
+//   // memory is freed.
+
+// fn makes_copy(some_integer: i32) { // some_integer comes into scope
+//     println!("{some_integer}");
+// } // Here, some_integer goes out of scope. Nothing special happens.
+
+// fn main() {
+//     let s = String::from("hello");
+
+//     change(&s);
+// }
+
+// fn change(some_string: &String) {
+//     some_string.push_str(", world");
+// }
+
+
+// fn dangle() -> &String { // dangle returns a reference to a String
+
+//     let s = String::from("hello"); // s is a new String
+
+//     &s // we return a reference to the String, s
+// } // Here, s goes out of scope and is dropped, so its memory goes away.
+//   // Danger!
+
 fn main() {
-    let s = String::from("hello");  // s comes into scope
+    let string = no_dangle();
+}
 
-    takes_ownership(s);             // s's value moves into the function...
-                                    // ... and so is no longer valid here
+fn no_dangle() -> String {
+    let s = String::from("hello");
 
-    let x = 5;                      // x comes into scope
-
-    makes_copy(x);                  // Because i32 implements the Copy trait,
-                                    // x does NOT move into the function,
-                                    // so it's okay to use x afterward.
-
-} // Here, x goes out of scope, then s. However, because s's value was moved,
-  // nothing special happens.
-
-fn takes_ownership(some_string: String) { // some_string comes into scope
-    println!("{some_string}");
-} // Here, some_string goes out of scope and `drop` is called. The backing
-  // memory is freed.
-
-fn makes_copy(some_integer: i32) { // some_integer comes into scope
-    println!("{some_integer}");
-} // Here, some_integer goes out of scope. Nothing special happens.
+    s
+}
