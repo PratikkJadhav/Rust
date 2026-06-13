@@ -63,12 +63,57 @@
 // } // Here, s goes out of scope and is dropped, so its memory goes away.
 //   // Danger!
 
-fn main() {
-    let string = no_dangle();
+// fn main() {
+//     let string = no_dangle();
+// }
+
+// fn no_dangle() -> String {
+//     let s = String::from("hello");
+
+//     s
+// }
+
+// fn first_word(s: &String) -> usize {
+//     let bytes = s.as_bytes();
+
+//     for (i, &item) in bytes.iter().enumerate() {
+//         if item == b' ' {
+//             return i;
+//         }
+//     }
+
+//     s.len()
+// }
+
+// fn main() {
+//     let mut s = String::from("hello world");
+
+//     let word = first_word(&s); // word will get the value 5
+
+//     s.clear(); // this empties the String, making it equal to ""
+
+//     // word still has the value 5 here, but s no longer has any content that we
+//     // could meaningfully use with the value 5, so word is now totally invalid!
+// }
+
+fn first_word(s: &String) -> &str {
+    let bytes = s.as_bytes();
+
+    for (i, &item) in bytes.iter().enumerate() {
+        if item == b' ' {
+            return &s[0..i];
+        }
+    }
+
+    &s[..]
 }
 
-fn no_dangle() -> String {
-    let s = String::from("hello");
+fn main() {
+    let mut s = String::from("hello world");
 
-    s
+    let word = first_word(&s);
+
+    s.clear(); // error!
+
+    println!("the first word is: {word}");
 }
