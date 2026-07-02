@@ -96,7 +96,123 @@
 //     // could meaningfully use with the value 5, so word is now totally invalid!
 // }
 
-fn first_word(s: &String) -> &str {
+// fn first_word(s: &String) -> &str {
+//     let bytes = s.as_bytes();
+
+//     for (i, &item) in bytes.iter().enumerate() {
+//         if item == b' ' {
+//             return &s[0..i];
+//         }
+//     }
+
+//     &s[..]
+// }
+
+// fn main() {
+//     let mut s = String::from("hello world");
+
+//     let word = first_word(&s);
+
+//     s.clear(); // error!
+
+//     println!("the first word is: {word}");
+// }
+
+// fn main(){
+//     let mut s = String::from("hello");
+
+//     s.push_str("World");
+//     println!("{s}");
+// }
+
+// fn main() {
+//     let s1 = String::from("hello");
+//     // let s2 = s1;
+//     let s2 = s1.clone();
+//     println!("{s2}, pratik!");
+//     println!("{s1} , world");
+// }
+
+// fn main() {
+//     let s1 = String::from("hello");
+
+//     let (s2, len) = calculate_length(s1);
+
+//     println!("The length of '{s2}' is {len}.");
+// }
+
+// fn calculate_length(s: String) -> (String, usize) {
+//     let length = s.len(); // len() returns the length of a String
+
+//     (s, length)
+// }
+
+// fn main() {
+//     let s1 = String::from("hello");
+
+//     let len = calculate_length(&s1);
+
+//     println!("The length of '{s1}' is {len}.");
+// }
+
+// fn calculate_length(s: &String) -> usize {
+//     s.len()
+// }
+
+// fn main() {
+//     let mut s = String::from("hello");
+
+//     change(&mut s);
+// }
+
+// fn change(some_string: &mut String) {
+//     some_string.push_str(", world");
+// }
+
+// fn main() {
+//     let mut s = String::from("hello");
+
+//     {
+//         let r1 = &mut s;
+//     } // r1 goes out of scope here, so we can make a new reference with no problems.
+
+//     let r2 = &mut s;
+// }
+
+// fn main() {
+//     let mut s = String::from("hello");
+
+//     let r1 = &s; // no problem
+//     let r2 = &s; // no problem
+//     println!("{r1} and {r2}");
+//     // Variables r1 and r2 will not be used after this point.
+
+//     let r3 = &mut s; // no problem
+//     println!("{r3}");
+// }
+
+// fn first_word(s: &String) -> usize {
+//     let bytes = s.as_bytes();
+
+//     for (i, &item) in bytes.iter().enumerate() {
+//         if item == b' ' {
+//             return i;
+//         }
+//     }
+
+//     s.len()
+// }
+
+// fn main() {}
+
+// fn main() {
+//     let s = String::from("hello world");
+
+//     let hello = &s[0..5];
+//     let world = &s[6..11];
+// }
+
+fn first_word(s: &str) -> &str {
     let bytes = s.as_bytes();
 
     for (i, &item) in bytes.iter().enumerate() {
@@ -109,11 +225,23 @@ fn first_word(s: &String) -> &str {
 }
 
 fn main() {
-    let mut s = String::from("hello world");
+    let my_string = String::from("hello world");
 
-    let word = first_word(&s);
+    // `first_word` works on slices of `String`s, whether partial or whole.
+    let word = first_word(&my_string[0..6]);
+    let word = first_word(&my_string[..]);
+    // `first_word` also works on references to `String`s, which are equivalent
+    // to whole slices of `String`s.
+    let word = first_word(&my_string);
 
-    s.clear(); // error!
+    let my_string_literal = "hello world";
 
-    println!("the first word is: {word}");
+    // `first_word` works on slices of string literals, whether partial or
+    // whole.
+    let word = first_word(&my_string_literal[0..6]);
+    let word = first_word(&my_string_literal[..]);
+
+    // Because string literals *are* string slices already,
+    // this works too, without the slice syntax!
+    let word = first_word(my_string_literal);
 }
