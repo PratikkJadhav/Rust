@@ -194,21 +194,41 @@
 //     println!("Can rect1 hold rect3? {}", rect1.can_hold(&rect3));
 // }
 
-#[derive(Debug)]
-struct Rectangle {
-    width: u32,
-    height: u32,
-}
+// #[derive(Debug)]
+// struct Rectangle {
+//     width: u32,
+//     height: u32,
+// }
 
-impl Rectangle {
-    fn square(size: u32) -> Self {
-        Self {
-            width: size,
-            height: size,
-        }
-    }
-}
+// impl Rectangle {
+//     fn square(size: u32) -> Self {
+//         Self {
+//             width: size,
+//             height: size,
+//         }
+//     }
+// }
+
+// fn main() {
+//     let sq = Rectangle::square(3);
+// }
 
 fn main() {
-    let sq = Rectangle::square(3);
+    enum Message {
+        Quit,
+        Move { x: i32, y: i32 },
+        Write(String),
+        ChangeColor(i32, i32, i32),
+    }
+
+    impl Message {
+        fn call(&self) {
+            // method body would be defined here
+        }
+    }
+
+    let m = Message::Write(String::from("hello"));
+    m.call();
+
+    let m: Option<_> = None;
 }
